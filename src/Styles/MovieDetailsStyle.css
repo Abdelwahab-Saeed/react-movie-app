@@ -1,0 +1,32 @@
+/* Additional Custom Styles */
+.container {
+    max-width: 1200px;
+  }
+  
+  img {
+    border-radius: 8px;
+  }
+  
+  .text-muted {
+    font-size: 1rem;
+  }
+  
+  .row .col-md-2 {
+    margin-bottom: 20px;
+  }
+  
+  img.rounded-circle {
+    max-height: 150px;
+    object-fit: cover;
+  }
+  
+  .btn-outline-primary {
+    border-color: #007bff;
+    color: #007bff;
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
