@@ -3,9 +3,11 @@ import axios from 'axios';
 import MyCard from '../components/MyCard';
 import MyTitle from '../components/MyTitle';
 import Navbar from '../components/Navbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { getMoviesList } from '../Redux/Actions/MoviesAction';
 
 export default function Movies() {
-  const [movies, setMovies] = useState([]);
+  // const [movies, setMovies] = useState([]);
   const [category, setCategory] = useState('popular');
   const [search, setSearch] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -13,38 +15,46 @@ export default function Movies() {
   const [page, setPage] = useState(1); 
   const [totalPages, setTotalPages] = useState(1); 
 
+
+  const movies = useSelector( (state) => state.MyList.list);
+  const dispatch = useDispatch();
+
   useEffect(() => {
+    dispatch(getMoviesList());
     
-    if (!searchQuery) {
-      setLoading(true);
-      axios
-        .get(`https://api.themoviedb.org/3/movie/${category}?api_key=6a1cabb5e93fd6605356ead9aa9712dd&language=en-US&page=${page}`)
-        .then((response) => {
-          setMovies(response.data.results);
-          setTotalPages(response.data.total_pages); 
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-          setLoading(false);
-        });
-    }
+    // if (!searchQuery) {
+    //   setLoading(true);
+
+      
+
+    //   axios
+    //     .get(`https://api.themoviedb.org/3/movie/${category}?api_key=6a1cabb5e93fd6605356ead9aa9712dd&language=en-US&page=${page}`)
+    //     .then((response) => {
+    //       setMovies(response.data.results);
+    //       setTotalPages(response.data.total_pages); 
+    //       setLoading(false);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //       setLoading(false);
+    //     });
+    // }
     
-    else {
-      setLoading(true);
-      axios
-        .get(`https://api.themoviedb.org/3/search/movie?api_key=6a1cabb5e93fd6605356ead9aa9712dd&language=en-US&query=${search}&page=${page}`)
-        .then((response) => {
-          setMovies(response.data.results);
-          setTotalPages(response.data.total_pages);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-          setLoading(false);
-        });
-    }
-  }, [category, searchQuery, page]);
+    // else {
+    //   setLoading(true);
+    //   axios
+    //     .get(`https://api.themoviedb.org/3/search/movie?api_key=6a1cabb5e93fd6605356ead9aa9712dd&language=en-US&query=${search}&page=${page}`)
+    //     .then((response) => {
+    //       setMovies(response.data.results);
+    //       setTotalPages(response.data.total_pages);
+    //       setLoading(false);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //       setLoading(false);
+    //     });
+    // }
+  }, []);
 
   // Handle search submit
   const handleSubmit = (e) => {
@@ -64,8 +74,9 @@ export default function Movies() {
 
   return (
     <>
+      
       <Navbar />
-      <div className="container-fluid px-4 py-5">
+      <div className="container px-4 py-5">
         <MyTitle title="Welcome to Muvasa" />
         
         <div className="mb-3">
